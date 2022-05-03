@@ -1,14 +1,15 @@
 const fetch = require('node-fetch')
+const fs = require('fs');
 async function getnuevoBitcoin(){
     try{
         const response = await fetch ('https://api.coindesk.com/v1/bpi/currentprice.json');
-        const data = await response();
+        const data = await response.json();
         let bitcoinsalida = "";
-        Array.from(data).forEach(bit => {
-            bitcoinsalida+= `${bit['rate']}`;
+        Array.from(data).forEach(bitc => {
+            bitcoinsalida+= `${bitc['rate']}`;
         });
 
-        fs.writefile('bitcoint.txt', bitcoinsalida, (error) => {
+        fs.writeFile('bitcoint.txt', bitcoinsalida, (error) => {
             if (error){
                 console.log(error);
                 return;
